@@ -6,6 +6,7 @@ function getRandom (min, max) {
   }
   return Math.floor(Math.random() * (Math.abs(max - min) + 1)) + min;
 }
+console.log(getRandom(0, 10));
 
 const checkLength = (str,  maxLength) => str.length <= maxLength;
-
+console.log(checkLength('qweefdcs', 10));
