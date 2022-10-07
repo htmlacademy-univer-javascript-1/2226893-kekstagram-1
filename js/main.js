@@ -33,10 +33,10 @@ checkLength('qweefdcs', 10);
 const getRandomArrayElement = (elements) => elements[getRandom(0, elements.length - 1)];
 
 const createComment = () => ({
-    id: getRandom(0, 1000),
-    avatar: `img/avatar-${getRandom(1, 6)}.svg`,
-    message: getRandomArrayElement(MESSAGES),
-    name: getRandomArrayElement(NAMES),
+  id: getRandom(0, 1000),
+  avatar: `img/avatar-${getRandom(1, 6)}.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES),
 });
 
 const existPhotoID = [];
@@ -45,12 +45,13 @@ const getPhotoID = () => {
   return existPhotoID.length;
 };
 const createPhotoDescription = () => ({
-    id: getPhotoID(),
-    url: `photos/${existPhotoID.length}.jpg`,
-    description: 'I hope it works',
-    likes: getRandom(15, 200),
-    comments: Array.from({length: getRandom(0, 5)}, createComment),
+  id: getPhotoID(),
+  url: `photos/${existPhotoID.length}.jpg`,
+  description: 'I hope it works',
+  likes: getRandom(15, 200),
+  comments: Array.from({length: getRandom(0, 5)}, createComment),
 });
 
 const PHOTO_DESCRIPTION_COUNT = 25;
 const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, createPhotoDescription);
+photoDescriptions;
