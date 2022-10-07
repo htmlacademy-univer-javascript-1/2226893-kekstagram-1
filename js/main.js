@@ -25,10 +25,8 @@ function getRandom (min, max) {
   }
   return Math.floor(Math.random() * (Math.abs(max - min) + 1)) + min;
 }
-getRandom(0, 10);
 
 const checkLength = (str,  maxLength) => str.length <= maxLength;
-checkLength('qweefdcs', 10);
 
 const getRandomArrayElement = (elements) => elements[getRandom(0, elements.length - 1)];
 
@@ -54,4 +52,3 @@ const createPhotoDescription = () => ({
 
 const PHOTO_DESCRIPTION_COUNT = 25;
 const photoDescriptions = Array.from({length: PHOTO_DESCRIPTION_COUNT}, createPhotoDescription);
-photoDescriptions;
