@@ -1,4 +1,5 @@
 import {createPhotoDescriptions} from'./data.js';
+import {showBigPicture} from './big-picture.js';
 
 const templatePicture = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -11,6 +12,7 @@ for (let i = 0; i < photoDescriptions.length; i++) {
   photoElement.querySelector('img').src = photoDescriptions[i].url;
   photoElement.querySelector('.picture__likes').textContent = photoDescriptions[i].likes;
   photoElement.querySelector('.picture__comments').textContent = photoDescriptions[i].comments.length;
+  showBigPicture(photoElement, photoDescriptions[i]);
   fragment.append(photoElement);
 }
 
