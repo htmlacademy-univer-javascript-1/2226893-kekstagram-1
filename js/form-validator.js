@@ -47,11 +47,11 @@ const checkTags = function (str) {
   }
 };
 
-const pristine = new Pristine(form);
+//const pristine = new Pristine(form);
 
-const isValid = pristine.validate();
+//const isValid = pristine.validate();
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  isValid;
+  checkTags(hashtags.value);
 });
