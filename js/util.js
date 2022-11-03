@@ -12,4 +12,6 @@ checkLength('qweefdcs', 10);
 
 const getRandomArrayElement = (elements) => elements[getRandom(0, elements.length - 1)];
 
-export {getRandom, getRandomArrayElement};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandom, getRandomArrayElement, isEscapeKey};
