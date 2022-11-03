@@ -1,5 +1,5 @@
-import { isEscapeKey } from "./util.js";
-import "./form-validator.js"
+import { isEscapeKey } from './util.js';
+import './form-validator.js';
 
 const uploadOpenElement = document.querySelector('#upload-file');
 const uploadCloseElement = document.querySelector('#upload-cancel');
@@ -17,7 +17,7 @@ function openUpload () {
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onUploadEscapeKeydown);
-};
+}
 
 function closeUpload () {
   document.querySelector('.img-upload__overlay').classList.add('hidden');
@@ -25,12 +25,12 @@ function closeUpload () {
 
   document.removeEventListener('keydown', onUploadEscapeKeydown);
   document.querySelector('#upload-file').value = '';
-};
+}
 
-uploadOpenElement.addEventListener('click', function () {
+uploadOpenElement.addEventListener('click', () => {
   openUpload();
 });
 
-uploadCloseElement.addEventListener('click', function () {
+uploadCloseElement.addEventListener('click', () => {
   closeUpload();
 });
