@@ -7,10 +7,6 @@ commentArea.removeChild(commentArea.querySelector('li'));
 4.6. Все комментарии к изображению выводятся в блок .social__comments.
     Сразу после открытия изображения в полноэкранном режиме отображается не более 5 комментариев. Количество показанных комментариев и общее число
     комментариев отображается в блоке .social__comment-count.
-    Пример разметки списка комментариев приведён в блоке .social__comments.
-    Комментарий оформляется отдельным элементом списка li с классом social__comment.
-    Аватарка автора комментария отображается в блоке .social__picture. Имя автора комментария отображается в атрибуте alt его аватарки.
-    Текст комментария выводится в блоке .social__text.
 
 4.7. Отображение дополнительных комментариев происходит при нажатии на кнопку .comments-loader.
     При нажатии на кнопку отображается не более 5 новых комментариев.
@@ -37,14 +33,6 @@ const createCommentBlock = function (comment) {
   return item;
 };
 
-const createCommentsList = function (comments) {
-  if (comments.length !== 0) {
-    for (let i = 0; i < comments.length; i++) {
-      commentArea.append(createCommentBlock(comments[i]));
-    }
-  }
-};
-
 const removeCommentsList = function () {
   const children = commentArea.querySelectorAll('li');
   if (children.length > 0) {
@@ -52,7 +40,7 @@ const removeCommentsList = function () {
       commentArea.removeChild(children[i]);
     }
   }
-}
+};
 
 const showBigPicture = function (element, picture) {
   element.addEventListener('click', () => {
@@ -63,7 +51,34 @@ const showBigPicture = function (element, picture) {
     bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
     bigPicture.querySelector('.social__caption').textContent = picture.description;
 
-    createCommentsList(picture.comments);
+    const onCommentsLoader = function () {
+      createCommentsList();
+    };
+    const createCommentsList = function () {
+      let childrenCount = commentArea.querySelectorAll('li').length;
+      if (picture.comments.length !== 0) {
+        for (let i = 0; childrenCount + i < picture.comments.length && i < 5; i++) {
+          commentArea.append(createCommentBlock(picture.comments[childrenCount + i]));
+        }
+      }
+      childrenCount = commentArea.querySelectorAll('li').length;
+
+      const aboutComments = bigPicture.querySelector('.social__comment-count');
+      let textAboutComments = aboutComments.innerHTML;
+      aboutComments.innerHTML = childrenCount + textAboutComments.substring(textAboutComments.indexOf(' '));
+
+      const commentsLoader = bigPicture.querySelector('.comments-loader');
+
+      if (childrenCount >= picture.comments.length) {
+        commentsLoader.classList.add('hidden');
+        commentsLoader.removeEventListener('click', onCommentsLoader);
+      } else {
+        commentsLoader.addEventListener('click', onCommentsLoader);
+        commentsLoader.classList.remove('hidden');
+      }
+    };
+
+    createCommentsList();
 
     bigPicture.classList.remove('hidden');
   });

@@ -36,7 +36,7 @@ const createPhotoDescription = () => ({
   url: `photos/${existPhotoID.length}.jpg`,
   description: 'I hope it works',
   likes: getRandom(15, 200),
-  comments: Array.from({length: getRandom(0, 5)}, createComment),
+  comments: Array.from({length: getRandom(0, 10)}, createComment),
 });
 
 const PHOTO_DESCRIPTION_COUNT = 25;
