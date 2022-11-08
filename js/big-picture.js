@@ -52,7 +52,7 @@ const showBigPicture = function (element, picture) {
     bigPicture.querySelector('.social__caption').textContent = picture.description;
 
     let childrenCount = commentArea.querySelectorAll('li').length;
-      const commentsLoader = bigPicture.querySelector('.comments-loader');
+    const commentsLoader = bigPicture.querySelector('.comments-loader');
 
     const createCommentsList = function () {
       if (picture.comments.length !== 0) {
@@ -69,7 +69,14 @@ const showBigPicture = function (element, picture) {
     };
 
     const onCommentsLoader = function () {
-      displayComments();
+      createCommentsList();
+      if (childrenCount >= picture.comments.length) {
+        commentsLoader.classList.add('hidden');
+        commentsLoader.removeEventListener('click', onCommentsLoader);
+      } else {
+        commentsLoader.addEventListener('click', onCommentsLoader);
+        commentsLoader.classList.remove('hidden');
+      }
     };
 
     const displayComments = function () {
