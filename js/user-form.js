@@ -11,7 +11,7 @@ const smallerButton = document.querySelector('.scale__control--smaller');
 const biggerButton = document.querySelector('.scale__control--bigger');
 
 const form = document.querySelector('.img-upload__form');
-const submitButton = form.querySelector('.img-upload__submit')
+const submitButton = form.querySelector('.img-upload__submit');
 
 let wasMessage = false;
 
@@ -75,7 +75,7 @@ function displayMessage (isSuccess) {
 
   button.addEventListener('click', removeMessage);
   document.addEventListener('keydown', onEscapeKeydown);
-  document.onclick = (evt) => removeMessage();
+  document.onclick = () => removeMessage();
 
 
 }
@@ -96,7 +96,7 @@ const unblockSubmitButton = () => {
   submitButton.disabled = false;
 };
 
-const setUserFormSubmit = function (onSuccess) {
+const setUserFormSubmit = function () {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 

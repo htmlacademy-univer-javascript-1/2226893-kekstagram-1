@@ -6,4 +6,4 @@ getData((photos) => {
   renderPhotos(photos);
 });
 
-setUserFormSubmit(console.log);
+setUserFormSubmit();

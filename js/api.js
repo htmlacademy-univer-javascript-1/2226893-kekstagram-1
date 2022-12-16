@@ -1,4 +1,4 @@
-import { showAlert } from "./util.js";
+import { showAlert } from './util.js';
 
 const getData = (onSuccess) => {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
@@ -6,7 +6,7 @@ const getData = (onSuccess) => {
     .then((photos) => {
       onSuccess(photos);
     })
-    .catch((err) => {
+    .catch(() => {
       showAlert('Не удалось загрузить данные с сервера. Перезагрузите страницу');
     });
 };

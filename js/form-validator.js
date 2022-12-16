@@ -21,7 +21,7 @@ comment.onblur = () => {
 };
 
 const checkTags = function (str) {
-  if (str.length === 0) return true;
+  if (str.length === 0) { return true; }
   const tags = str.split(' ');
 
   if (tags.length > 5) {

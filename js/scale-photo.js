@@ -23,6 +23,6 @@ const onBiggerButton = function () {
 const resetScale = function () {
   scaleValue.value = '100%';
   preview.style.transform = 'none';
-}
+};
 
 export {onSmallerButton, onBiggerButton, resetScale};
