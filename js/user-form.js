@@ -1,7 +1,8 @@
-import { isEscapeKey } from './util.js';
-import './form-validator.js';
+import { isEscapeKey, showAlert } from './util.js';
+import { validator } from './form-validator.js';
 import { onSmallerButton, onBiggerButton } from './scale-photo.js';
 import { changeEffect, removeFilter } from './photo-effects.js';
+import { sendData } from './api.js';
 
 const uploadOpenElement = document.querySelector('#upload-file');
 const uploadCloseElement = document.querySelector('#upload-cancel');
@@ -26,6 +27,7 @@ function openUpload () {
   document.addEventListener('keydown', onUploadEscapeKeydown);
   smallerButton.addEventListener('click', onSmallerButton);
   biggerButton.addEventListener('click', onBiggerButton);
+  form.querySelector('.effect-level__slider').classList.add('hidden');
   form.addEventListener('change', changeEffect);
 }
 
@@ -49,3 +51,31 @@ uploadOpenElement.addEventListener('click', () => {
 uploadCloseElement.addEventListener('click', () => {
   closeUpload();
 });
+
+const setUserFormSubmit = function (onSuccess) {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = validator();
+    //временно верно
+    //const isValid = true;
+    if (isValid) {
+      //blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess('успешно');
+          //unblockSubmitButton();
+        },
+        () => {
+          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+          //unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    } else {
+      showAlert('Поле ХэшТег заполнено неверно. Попробуйте ещё раз');
+    }
+  });
+};
+
+export {setUserFormSubmit};
