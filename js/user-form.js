@@ -1,6 +1,6 @@
-import { isEscapeKey, showAlert } from './util.js';
+import { isEscapeKey } from './util.js';
 import { validator } from './form-validator.js';
-import { onSmallerButton, onBiggerButton } from './scale-photo.js';
+import { onSmallerButton, onBiggerButton, resetScale } from './scale-photo.js';
 import { changeEffect, removeFilter } from './photo-effects.js';
 import { sendData } from './api.js';
 
@@ -13,13 +13,22 @@ const biggerButton = document.querySelector('.scale__control--bigger');
 const form = document.querySelector('.img-upload__form');
 const submitButton = form.querySelector('.img-upload__submit')
 
+let wasMessage = false;
+
 const onUploadEscapeKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !wasMessage) {
     evt.preventDefault();
-    document.querySelector('.img-upload__overlay').classList.add('hidden');
-    document.body.classList.remove('modal-open');
+    closeUpload();
   }
+  wasMessage = false;
 };
+
+function resetForm () {
+  removeFilter();
+  // поле загрузки фотографии, стилизованное под букву «О» в логотипе, очищается.
+  form.reset();
+  resetScale();
+}
 
 function openUpload () {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
@@ -42,7 +51,33 @@ function closeUpload () {
   biggerButton.removeEventListener('click', onBiggerButton);
   form.removeEventListener('change', changeEffect);
 
-  removeFilter();
+  resetForm();
+}
+
+function displayMessage (isSuccess) {
+  wasMessage = true;
+  const messageTemplate = document.querySelector(`#${isSuccess ? 'success' : 'error'}`).content.querySelector('section');
+  const message = messageTemplate.cloneNode(true);
+  const button = message.querySelector('button');
+
+  document.body.append(message);
+
+  const removeMessage = () => {
+    message.remove();
+  };
+
+  const onEscapeKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      removeMessage();
+    }
+  };
+
+  button.addEventListener('click', removeMessage);
+  document.addEventListener('keydown', onEscapeKeydown);
+  document.onclick = (evt) => removeMessage();
+
+
 }
 
 uploadOpenElement.addEventListener('click', () => {
@@ -66,23 +101,23 @@ const setUserFormSubmit = function (onSuccess) {
     evt.preventDefault();
 
     const isValid = validator();
-    //временно верно
-    //const isValid = true;
+
     if (isValid) {
       blockSubmitButton();
       sendData(
         () => {
-          onSuccess('успешно');
           unblockSubmitButton();
+          closeUpload();
+          displayMessage(isValid);
         },
         () => {
-          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+          displayMessage(isValid);
           unblockSubmitButton();
         },
         new FormData(evt.target),
       );
     } else {
-      showAlert('Форма заполнена неверно. Попробуйте ещё раз');
+      displayMessage(isValid);
     }
   });
 };
