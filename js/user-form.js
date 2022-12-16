@@ -11,6 +11,7 @@ const smallerButton = document.querySelector('.scale__control--smaller');
 const biggerButton = document.querySelector('.scale__control--bigger');
 
 const form = document.querySelector('.img-upload__form');
+const submitButton = form.querySelector('.img-upload__submit')
 
 const onUploadEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -52,6 +53,14 @@ uploadCloseElement.addEventListener('click', () => {
   closeUpload();
 });
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+};
+
 const setUserFormSubmit = function (onSuccess) {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -60,20 +69,20 @@ const setUserFormSubmit = function (onSuccess) {
     //временно верно
     //const isValid = true;
     if (isValid) {
-      //blockSubmitButton();
+      blockSubmitButton();
       sendData(
         () => {
           onSuccess('успешно');
-          //unblockSubmitButton();
+          unblockSubmitButton();
         },
         () => {
           showAlert('Не удалось отправить форму. Попробуйте ещё раз');
-          //unblockSubmitButton();
+          unblockSubmitButton();
         },
         new FormData(evt.target),
       );
     } else {
-      showAlert('Поле ХэшТег заполнено неверно. Попробуйте ещё раз');
+      showAlert('Форма заполнена неверно. Попробуйте ещё раз');
     }
   });
 };
