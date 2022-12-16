@@ -21,6 +21,7 @@ comment.onblur = () => {
 };
 
 const checkTags = function (str) {
+  if (str.length === 0) { return true; }
   const tags = str.split(' ');
 
   if (tags.length > 5) {
@@ -47,11 +48,10 @@ const checkTags = function (str) {
   }
 };
 
-//const pristine = new Pristine(form);
+const pristine = new Pristine(form);
 
-//const isValid = pristine.validate();
+const validator = function () {
+  return pristine.validate() && checkTags(hashtags.value);
+};
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  checkTags(hashtags.value);
-});
+export { validator };

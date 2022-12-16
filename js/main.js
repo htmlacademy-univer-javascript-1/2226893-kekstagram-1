@@ -1,2 +1,9 @@
-import './picture.js';
-import './user-form.js';
+import { getData } from './api.js';
+import { renderPhotos } from './picture.js';
+import { setUserFormSubmit } from './user-form.js';
+
+getData((photos) => {
+  renderPhotos(photos);
+});
+
+setUserFormSubmit();

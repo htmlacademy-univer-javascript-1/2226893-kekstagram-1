@@ -3,15 +3,6 @@ const bigPicture = document.querySelector('.big-picture');
 const commentArea = bigPicture.querySelector('.social__comments');
 commentArea.removeChild(commentArea.querySelector('li'));
 commentArea.removeChild(commentArea.querySelector('li'));
-/*
-4.6. Все комментарии к изображению выводятся в блок .social__comments.
-    Сразу после открытия изображения в полноэкранном режиме отображается не более 5 комментариев. Количество показанных комментариев и общее число
-    комментариев отображается в блоке .social__comment-count.
-
-4.7. Отображение дополнительных комментариев происходит при нажатии на кнопку .comments-loader.
-    При нажатии на кнопку отображается не более 5 новых комментариев.
-    При изменении количества показанных комментариев число показанных комментариев в блоке .social__comment-count также изменяется.
-*/
 
 const createCommentBlock = function (comment) {
   const item = document.createElement('li');
