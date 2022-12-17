@@ -12,6 +12,16 @@ checkLength('qweefdcs', 10);
 
 const getRandomArrayElement = (elements) => elements[getRandom(0, elements.length - 1)];
 
+const getRandomArrayElements = (array, count) => {
+  const res = [];
+  for (let i = 0; i < count; i++) {
+    const element = array[getRandom(0, array.length - 1)];
+    res.push(element);
+    array.splice(array.indexOf(element), 1);
+  }
+  return res;
+};
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 //сообщение об ошибке
@@ -37,4 +47,13 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandom, getRandomArrayElement, isEscapeKey, showAlert};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export {getRandom, getRandomArrayElement, isEscapeKey, showAlert, getRandomArrayElements, debounce};
