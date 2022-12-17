@@ -26,14 +26,13 @@ const renderPhoto = function (photo) {
 };
 
 const removePhotos = function () {
-  currentPhotosList.forEach(photo => picturesBlock.removeChild(photo));
+  currentPhotosList.forEach((photo) => picturesBlock.removeChild(photo));
   currentPhotosList = [];
 };
 
 const renderPhotos = function () {
   removePhotos();
-  console.log(newPhotosList);
-  newPhotosList.forEach(photo => renderPhoto(photo));
+  newPhotosList.forEach((photo) => renderPhoto(photo));
   picturesBlock.append(fragment);
 };
 
@@ -69,7 +68,7 @@ const changeFilter = function (photos, db) {
         break;
       case ('filter-discussed'):
         addDiscussedFilterClass();
-        newPhotosList.sort((a, b) => b.comments.length - a.comments.length)
+        newPhotosList.sort((a, b) => b.comments.length - a.comments.length);
         break;
     }
     db();
@@ -85,6 +84,6 @@ const firstRender = function (photos) {
     () => renderPhotos(newPhotosList),
     RERENDER_DELAY,
   ));
-}
+};
 
 export {firstRender};
